@@ -1,5 +1,6 @@
 class Bender {
     String mapa;
+    char[][] myMap;
 
     // Constructor: ens passen el mapa en forma d'String
     public Bender(String mapa) {
@@ -10,14 +11,23 @@ class Bender {
 
     public String run() {
         makeMap();
+        findX();
         return findPath();
     }
-
+/*
+    private void findX() {
+        for (int i = 0; i < ; i++) {
+            for (int j = 0; j < ; j++) {
+                if (myMap[i][j] == '$') return ;
+            }
+        }
+    }
+*/
     private void makeMap() {
         String[] rows = this.mapa.split("\n");
         int mapRows = rows.length;
         int mapCols = rows[0].length();
-        char[][] myMap = new char[mapRows][mapCols];
+        this.myMap = new char[mapRows][mapCols];
     }
 
     private String findPath() {
