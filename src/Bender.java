@@ -15,15 +15,16 @@ class Bender {
         makeMap();
         return robotGo();
     }
-/*
-    private void findX() {
-        for (int i = 0; i < ; i++) {
-            for (int j = 0; j < ; j++) {
-                if (myMap[i][j] == '$') return ;
+
+    /*
+        private void findX() {
+            for (int i = 0; i < ; i++) {
+                for (int j = 0; j < ; j++) {
+                    if (myMap[i][j] == '$') return ;
+                }
             }
         }
-    }
-*/
+    */
     private void makeMap() {
         String[] rows = this.mapa.split("\n");
         this.mapRows = rows.length;
@@ -44,8 +45,17 @@ class Bender {
         int[] goalLocation = find('$');
         int[] myLocation = find('X');
         boolean onX = false;
-        while (!onX){
-
+        boolean reverse = false;
+        while (!onX) {
+            int myX = myLocation[0];
+            int myY = myLocation[1];
+            if (myMap[myX][myY] == 'T') {
+                //teleport();
+            }
+            else if (myMap[myX][myY] == 'I') {
+                reverse = !reverse;
+            }
+            else myLocation = walk(myLocation, reverse);
             if (myLocation == goalLocation)
                 onX = true;
         }
@@ -53,16 +63,28 @@ class Bender {
         return result;
     }
 
+    private int[] walk(int[] myLocation, boolean reverse) {
+        if (reverse){
+            if (canGoDown()){
+                
+            }
+        }
+        else {
+            
+        }
+    }
+
+    private boolean canGoDown() {
+    }
+
     private int[] find(char objective) {
-        int[] location = new int[]{0, 0};
         for (int i = 0; i < this.mapRows; i++) {
             for (int j = 0; j < this.mapCols; j++) {
                 if (myMap[i][j] == objective) {
-                    location = new int[]{i, j};
-                    return location;
+                    return new int[]{i, j};
                 }
             }
         }
-        return location;
+        throw new RuntimeException("Can't find element: " + objective);
     }
 }
