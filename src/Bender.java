@@ -11,8 +11,7 @@ class Bender {
 
     public String run() {
         makeMap();
-        findX();
-        return findPath();
+        return robotGo();
     }
 /*
     private void findX() {
@@ -28,9 +27,17 @@ class Bender {
         int mapRows = rows.length;
         int mapCols = rows[0].length();
         this.myMap = new char[mapRows][mapCols];
+
+        for (int i = 0; i < mapRows; i++) {
+            char[] mapElements = rows[i].toCharArray();
+            for (int j = 0; j < mapCols; j++) {
+                char currentMapElement = mapElements[j];
+                this.myMap[i][j] = currentMapElement;
+            }
+        }
     }
 
-    private String findPath() {
+    private String robotGo() {
         String result = "";
         Boolean onX = false;
         while (!onX){
