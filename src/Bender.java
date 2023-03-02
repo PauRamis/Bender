@@ -1,10 +1,12 @@
+import java.util.Arrays;
+
 class Bender {
     String mapa;
-    String route;
+    String route = "";
     int mapRows;
     int mapCols;
-    int[] myLocation = find('X');
-    int[] goalLocation = find('$');
+    int[] myLocation; // = find('X')
+    int[] goalLocation; // = find('$')
     char[][] myMap;
 
     // Constructor: ens passen el mapa en forma d'String
@@ -35,10 +37,11 @@ class Bender {
     }
 
     private String robotGo() {
-        String result = "";
         boolean reverse = false;
-        while (this.myLocation != this.goalLocation) {
-            int myX = this.myLocation[0];
+        this.myLocation = find('X');
+        this.goalLocation = find('$');
+        while (!Arrays.equals(this.myLocation, this.goalLocation)) {
+            /*int myX = this.myLocation[0];
             int myY = this.myLocation[1];
 
             //Teleport
@@ -49,11 +52,11 @@ class Bender {
             //Reverse
             if (this.myMap[myX][myY] == 'I') {
                 reverse = !reverse;
-            }
+            }*/
 
             walk(reverse);
         }
-        return result;
+        return this.route;
     }
 
     private void walk(boolean reverse) {
@@ -82,7 +85,7 @@ class Bender {
 
     //Asegurar que no estem al maxim, o que hi hagi una paret
     private boolean canGoUp() {
-        int nexty = this.myLocation[0] + 1;
+        int nexty = this.myLocation[0] - 1;
         return this.myLocation[0] != mapRows && myMap[nexty][this.myLocation[1]] != '#';
     }
 
@@ -91,7 +94,7 @@ class Bender {
         while (stillUp) {
             route += "W";
             //my row goes up
-            this.myLocation[0]++;
+            this.myLocation[0]--;
             stillUp = canGoUp();
             if (this.myLocation == this.goalLocation)
                 break;
@@ -99,51 +102,51 @@ class Bender {
     }
 
     private boolean canGoRight() {
-        int nextx = this.myLocation[1] + 1;
+        int nextx = this.myLocation[1] - 1;
         return this.myLocation[1] != mapCols && myMap[this.myLocation[0]][nextx] != '#';
     }
 
     private void goRight() {
         boolean stillRight = true;
         while (stillRight) {
-            route += "W";
+            route += "E";
             //my col goes right
-            this.myLocation[1]++;
-            stillRight = canGoUp();
+            this.myLocation[1]--;
+            stillRight = canGoRight();
             if (this.myLocation == this.goalLocation)
                 break;
         }
     }
 
     private boolean canGoDown() {
-        int nexty = this.myLocation[0] - 1;
-        return this.myLocation[0] != 0 && myMap[nexty][this.myLocation[1]] != '#';
+        int nexty = this.myLocation[0] + 1;
+        return this.myLocation[0] > 0 && myMap[nexty][this.myLocation[1]] != '#';
     }
 
     private void goDown() {
         boolean stillDown = true;
         while (stillDown) {
-            route += "W";
+            route += "S";
             //my row goes down
-            this.myLocation[0]--;
-            stillDown = canGoUp();
-            if (this.myLocation == this.goalLocation)
+            this.myLocation[0]++;
+            stillDown = canGoDown();
+            if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
         }
     }
 
     private boolean canGoLeft() {
-        int nextx = this.myLocation[1] - 1;
-        return this.myLocation[1] != 0 && myMap[this.myLocation[0]][nextx] != '#';
+        int nextx = this.myLocation[1] + 1;
+        return this.myLocation[1] > 0 && myMap[this.myLocation[0]][nextx] != '#';
     }
 
     private void goLeft() {
         boolean stillLeft = true;
         while (stillLeft) {
-            route += "W";
-            stillLeft = canGoUp();
+            route += "E";
+            stillLeft = canGoLeft();
             //my col goes left
-            this.myLocation[1]--;
+            this.myLocation[1]++;
             if (this.myLocation == this.goalLocation)
                 break;
         }
