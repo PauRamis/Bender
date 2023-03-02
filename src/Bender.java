@@ -153,7 +153,7 @@ class Bender {
     private int[] find(char objective) {
         for (int i = 0; i < this.mapRows; i++) {
             for (int j = 0; j < this.mapCols; j++) {
-                if (myMap[i][j] == objective) {
+                if (this.myMap[i][j] == objective) {
                     return new int[]{i, j};
                 }
             }
