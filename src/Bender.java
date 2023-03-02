@@ -96,7 +96,7 @@ class Bender {
             //my row goes up
             this.myLocation[0]--;
             stillUp = canGoUp();
-            if (this.myLocation == this.goalLocation)
+            if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
         }
     }
@@ -113,7 +113,7 @@ class Bender {
             //my col goes right
             this.myLocation[1]--;
             stillRight = canGoRight();
-            if (this.myLocation == this.goalLocation)
+            if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
         }
     }
@@ -147,7 +147,7 @@ class Bender {
             stillLeft = canGoLeft();
             //my col goes left
             this.myLocation[1]++;
-            if (this.myLocation == this.goalLocation)
+            if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
         }
     }
