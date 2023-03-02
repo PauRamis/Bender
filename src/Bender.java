@@ -57,44 +57,41 @@ class Bender {
     }
 
     private void walk(boolean reverse) {
-        if (!reverse){
-            if (canGoDown()){
+        if (!reverse) {
+            if (canGoDown()) {
                 goDown();
-            }
-            else if (canGoLeft()){
+            } else if (canGoLeft()) {
                 goLeft();
-            }
-            else if (canGoUp()){
+            } else if (canGoUp()) {
                 goUp();
-            }
-            else if (canGoRight()){
+            } else if (canGoRight()) {
                 goRight();
             }
-        }
-        else {
-            if (canGoUp()){
+        } else {
+            if (canGoUp()) {
                 goUp();
-            }
-            else if (canGoRight()){
+            } else if (canGoRight()) {
                 goRight();
-            }
-            else if (canGoDown()){
+            } else if (canGoDown()) {
                 goDown();
-            }
-            else if (canGoLeft()){
+            } else if (canGoLeft()) {
                 goLeft();
             }
         }
     }
 
+    //Asegurar que no estem al maxim, o que hi hagi una paret
     private boolean canGoUp() {
-        return false;
+        int nexty = this.myLocation[0] + 1;
+        return this.myLocation[0] != mapRows && myMap[nexty][this.myLocation[1]] != '#';
     }
 
     private void goUp() {
         boolean stillUp = true;
-        while (stillUp){
+        while (stillUp) {
             route += "W";
+            //my row goes up
+            this.myLocation[0]++;
             stillUp = canGoUp();
             if (this.myLocation == this.goalLocation)
                 break;
@@ -102,13 +99,16 @@ class Bender {
     }
 
     private boolean canGoRight() {
-        return false;
+        int nextx = this.myLocation[1] + 1;
+        return this.myLocation[1] != mapCols && myMap[this.myLocation[0]][nextx] != '#';
     }
 
     private void goRight() {
         boolean stillRight = true;
-        while (stillRight){
+        while (stillRight) {
             route += "W";
+            //my col goes right
+            this.myLocation[1]++;
             stillRight = canGoUp();
             if (this.myLocation == this.goalLocation)
                 break;
@@ -116,13 +116,16 @@ class Bender {
     }
 
     private boolean canGoDown() {
-        return false;
+        int nexty = this.myLocation[0] - 1;
+        return this.myLocation[0] != 0 && myMap[nexty][this.myLocation[1]] != '#';
     }
 
     private void goDown() {
         boolean stillDown = true;
-        while (stillDown){
+        while (stillDown) {
             route += "W";
+            //my row goes down
+            this.myLocation[0]--;
             stillDown = canGoUp();
             if (this.myLocation == this.goalLocation)
                 break;
@@ -130,19 +133,21 @@ class Bender {
     }
 
     private boolean canGoLeft() {
-        return false;
+        int nextx = this.myLocation[1] - 1;
+        return this.myLocation[1] != 0 && myMap[this.myLocation[0]][nextx] != '#';
     }
 
     private void goLeft() {
         boolean stillLeft = true;
-        while (stillLeft){
+        while (stillLeft) {
             route += "W";
             stillLeft = canGoUp();
+            //my col goes left
+            this.myLocation[1]--;
             if (this.myLocation == this.goalLocation)
                 break;
         }
     }
-
 
 
     private int[] find(char objective) {
