@@ -1,7 +1,10 @@
 class Bender {
     String mapa;
+    String route;
     int mapRows;
     int mapCols;
+    int[] myLocation = find('X');
+    int[] goalLocation = find('$');
     char[][] myMap;
 
     // Constructor: ens passen el mapa en forma d'String
@@ -16,15 +19,6 @@ class Bender {
         return robotGo();
     }
 
-    /*
-        private void findX() {
-            for (int i = 0; i < ; i++) {
-                for (int j = 0; j < ; j++) {
-                    if (myMap[i][j] == '$') return ;
-                }
-            }
-        }
-    */
     private void makeMap() {
         String[] rows = this.mapa.split("\n");
         this.mapRows = rows.length;
@@ -42,40 +36,114 @@ class Bender {
 
     private String robotGo() {
         String result = "";
-        int[] goalLocation = find('$');
-        int[] myLocation = find('X');
-        boolean onX = false;
         boolean reverse = false;
-        while (!onX) {
-            int myX = myLocation[0];
-            int myY = myLocation[1];
-            if (myMap[myX][myY] == 'T') {
+        while (this.myLocation != this.goalLocation) {
+            int myX = this.myLocation[0];
+            int myY = this.myLocation[1];
+
+            //Teleport
+            if (this.myMap[myX][myY] == 'T') {
                 //teleport();
             }
-            else if (myMap[myX][myY] == 'I') {
+
+            //Reverse
+            if (this.myMap[myX][myY] == 'I') {
                 reverse = !reverse;
             }
-            else myLocation = walk(myLocation, reverse);
-            if (myLocation == goalLocation)
-                onX = true;
-        }
 
+            walk(reverse);
+        }
         return result;
     }
 
-    private int[] walk(int[] myLocation, boolean reverse) {
-        if (reverse){
+    private void walk(boolean reverse) {
+        if (!reverse){
             if (canGoDown()){
-                
+                goDown();
+            }
+            else if (canGoLeft()){
+                goLeft();
+            }
+            else if (canGoUp()){
+                goUp();
+            }
+            else if (canGoRight()){
+                goRight();
             }
         }
         else {
-            
+            if (canGoUp()){
+                goUp();
+            }
+            else if (canGoRight()){
+                goRight();
+            }
+            else if (canGoDown()){
+                goDown();
+            }
+            else if (canGoLeft()){
+                goLeft();
+            }
+        }
+    }
+
+    private boolean canGoUp() {
+        return false;
+    }
+
+    private void goUp() {
+        boolean stillUp = true;
+        while (stillUp){
+            route += "W";
+            stillUp = canGoUp();
+            if (this.myLocation == this.goalLocation)
+                break;
+        }
+    }
+
+    private boolean canGoRight() {
+        return false;
+    }
+
+    private void goRight() {
+        boolean stillRight = true;
+        while (stillRight){
+            route += "W";
+            stillRight = canGoUp();
+            if (this.myLocation == this.goalLocation)
+                break;
         }
     }
 
     private boolean canGoDown() {
+        return false;
     }
+
+    private void goDown() {
+        boolean stillDown = true;
+        while (stillDown){
+            route += "W";
+            stillDown = canGoUp();
+            if (this.myLocation == this.goalLocation)
+                break;
+        }
+    }
+
+    private boolean canGoLeft() {
+        return false;
+    }
+
+    private void goLeft() {
+        boolean stillLeft = true;
+        while (stillLeft){
+            route += "W";
+            stillLeft = canGoUp();
+            if (this.myLocation == this.goalLocation)
+                break;
+        }
+    }
+
+
 
     private int[] find(char objective) {
         for (int i = 0; i < this.mapRows; i++) {
