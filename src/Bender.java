@@ -20,7 +20,8 @@ class Bender {
 
     public String run() {
         makeMap();
-        return robotGo();
+        robotGo();
+        return this.route;
     }
 
     private void makeMap() {
@@ -38,26 +39,12 @@ class Bender {
         }
     }
 
-    private String robotGo() {
+    private void robotGo() {
         this.myLocation = find('X');
         this.goalLocation = find('$');
         while (!Arrays.equals(this.myLocation, this.goalLocation)) {
-            /*int myX = this.myLocation[0];
-            int myY = this.myLocation[1];
-
-            //Teleport
-            if (this.myMap[myX][myY] == 'T') {
-                //teleport();
-            }
-
-            //Reverse
-            if (this.myMap[myX][myY] == 'I') {
-                reverse = !reverse;
-            }*/
-
             walk();
         }
-        return this.route;
     }
 
     private void walk() {
@@ -98,9 +85,7 @@ class Bender {
             //my row goes up
             this.myLocation[0]--;
             stillUp = canGoUp();
-            if (this.myMap[myLocation[0]][myLocation[1]] == 'I') {
-                reverse = !reverse;
-            }
+            checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
         }
@@ -120,9 +105,7 @@ class Bender {
             //my col goes right
             this.myLocation[1]++;
             stillRight = canGoRight();
-            if (this.myMap[myLocation[0]][myLocation[1]] == 'I') {
-                reverse = !reverse;
-            }
+            checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
         }
@@ -142,9 +125,7 @@ class Bender {
             //my row goes down
             this.myLocation[0]++;
             stillDown = canGoDown();
-            if (this.myMap[myLocation[0]][myLocation[1]] == 'I') {
-                reverse = !reverse;
-            }
+            checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
         }
@@ -164,14 +145,23 @@ class Bender {
             stillLeft = canGoLeft();
             //my col goes left
             this.myLocation[1]--;
-            if (this.myMap[myLocation[0]][myLocation[1]] == 'I') {
-                reverse = !reverse;
-            }
+            checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
-                break;
+                break ;
         }
     }
 
+    private void checkMyLocation() {
+        if (this.myMap[myLocation[0]][myLocation[1]] == 'I') {
+            this.reverse = !this.reverse;
+        }
+        if (this.myMap[myLocation[0]][myLocation[1]] == 'T') {
+            teleport();
+        }
+    }
+
+    private void teleport() {
+    }
 
     private int[] find(char objective) {
         for (int i = 0; i < this.mapRows; i++) {
