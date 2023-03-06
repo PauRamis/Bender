@@ -27,7 +27,7 @@ public class Teleporter {
         int nearestYDistance = nearestTeleporter[0] - teleporterLocation[0];
         int nearestXDistance = nearestTeleporter[1] - teleporterLocation[1];
         int nearestDistance = Math.abs(nearestYDistance) + Math.abs(nearestXDistance);
-        if (newDistance < nearestDistance)
+        if (newDistance < nearestDistance && newDistance != 0)
             return true;
         return false;
     }

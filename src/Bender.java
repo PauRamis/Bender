@@ -61,12 +61,12 @@ class Bender {
         } else {
             if (canGoUp()) {
                 goUp();
-            } else if (canGoRight()) {
-                goRight();
-            } else if (canGoDown()) {
-                goDown();
             } else if (canGoLeft()) {
                 goLeft();
+            } else if (canGoDown()) {
+                goDown();
+            } else if (canGoRight()) {
+                goRight();
             }
         }
     }
@@ -84,10 +84,10 @@ class Bender {
             route += "N";
             //my row goes up
             this.myLocation[0]--;
-            stillUp = canGoUp();
             checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
+            stillUp = canGoUp();
         }
     }
 
@@ -104,10 +104,10 @@ class Bender {
             route += "E";
             //my col goes right
             this.myLocation[1]++;
-            stillRight = canGoRight();
             checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
+            stillRight = canGoRight();
         }
     }
 
@@ -124,10 +124,10 @@ class Bender {
             route += "S";
             //my row goes down
             this.myLocation[0]++;
-            stillDown = canGoDown();
             checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
+            stillDown = canGoDown();
         }
     }
 
@@ -142,12 +142,12 @@ class Bender {
         boolean stillLeft = true;
         while (stillLeft) {
             route += "W";
-            stillLeft = canGoLeft();
             //my col goes left
             this.myLocation[1]--;
             checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
                 break;
+            stillLeft = canGoLeft();
         }
     }
 
@@ -162,6 +162,7 @@ class Bender {
 
     //Teleport ha de fer un bucle cercant el T més proper en una espiral en sentit horari. sempre començar adalt.
     private void teleport() {
+        myLocation = Teleporter.nextTeleporter;
     }
 
     private int[] find(char objective) {
