@@ -6,7 +6,7 @@ public class Teleporter {
     static int[] nextTeleporter = findTeleporter();
 
     static int[] findTeleporter() {
-        int[] nearestTeleporter = {0, 0};
+        int[] nearestTeleporter = {99, 99}; //No es molt correcte, però em serveix temporarlment
         for (int i = 0; i < Bender.mapRows; i++) {
             for (int j = 0; j < Bender.mapCols; j++) {
                 if (Bender.myMap[i][j] == 'T') {
@@ -23,10 +23,10 @@ public class Teleporter {
     private static boolean isShorter(int[] newTeleporter, int[] nearestTeleporter) {
         int newYDistance = newTeleporter[0] - teleporterLocation[0];
         int newXDistance = newTeleporter[1] - teleporterLocation[1];
-        int newDistance = newYDistance + newXDistance;
+        int newDistance = Math.abs(newYDistance) + Math.abs(newXDistance);
         int nearestYDistance = nearestTeleporter[0] - teleporterLocation[0];
         int nearestXDistance = nearestTeleporter[1] - teleporterLocation[1];
-        int nearestDistance = nearestYDistance + nearestXDistance;
+        int nearestDistance = Math.abs(nearestYDistance) + Math.abs(nearestXDistance);
         if (newDistance < nearestDistance)
             return true;
         return false;
