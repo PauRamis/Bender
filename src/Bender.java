@@ -3,11 +3,11 @@ import java.util.Arrays;
 class Bender {
     String mapa;
     String route = "";
-    int mapRows;
-    int mapCols;
-    int[] myLocation; // = find('X')
+    static int mapRows;
+    static int mapCols;
+    static int[] myLocation; // = find('X')
     int[] goalLocation; // = find('$')
-    char[][] myMap;
+    static char[][] myMap;
     boolean reverse = false;
 
 
@@ -147,7 +147,7 @@ class Bender {
             this.myLocation[1]--;
             checkMyLocation();
             if (Arrays.equals(this.myLocation, this.goalLocation))
-                break ;
+                break;
         }
     }
 
@@ -160,6 +160,7 @@ class Bender {
         }
     }
 
+    //Teleport ha de fer un bucle cercant el T més proper en una espiral en sentit horari. sempre començar adalt.
     private void teleport() {
     }
 
