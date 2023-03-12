@@ -26,23 +26,23 @@ class Bender {
 
     private void makeMap() {
         String[] rows = this.mapa.split("\n");
-        this.mapRows = rows.length;
-        this.mapCols = rows[0].length();
-        this.myMap = new char[this.mapRows][this.mapCols];
+        mapRows = rows.length;
+        mapCols = rows[0].length();
+        myMap = new char[mapRows][mapCols];
 
-        for (int i = 0; i < this.mapRows; i++) {
+        for (int i = 0; i < mapRows; i++) {
             char[] mapElements = rows[i].toCharArray();
-            for (int j = 0; j < this.mapCols; j++) {
+            for (int j = 0; j < mapCols; j++) {
                 char currentMapElement = mapElements[j];
-                this.myMap[i][j] = currentMapElement;
+                myMap[i][j] = currentMapElement;
             }
         }
     }
 
     private void robotGo() {
-        this.myLocation = find('X');
+        myLocation = find('X');
         this.goalLocation = find('$');
-        while (!Arrays.equals(this.myLocation, this.goalLocation)) {
+        while (!Arrays.equals(myLocation, this.goalLocation)) {
             walk();
         }
     }
@@ -73,8 +73,8 @@ class Bender {
 
     //Assegurem que no hi hagi una paret a la casella d'adalt
     private boolean canGoUp() {
-        int nexty = this.myLocation[0] - 1;
-        return myMap[nexty][this.myLocation[1]] != '#';
+        int nexty = myLocation[0] - 1;
+        return myMap[nexty][myLocation[1]] != '#';
     }
 
     //Up = North
@@ -83,9 +83,9 @@ class Bender {
         while (stillUp) {
             route += "N";
             //my row goes up
-            this.myLocation[0]--;
+            myLocation[0]--;
             checkMyLocation();
-            if (Arrays.equals(this.myLocation, this.goalLocation))
+            if (Arrays.equals(myLocation, this.goalLocation))
                 break;
             stillUp = canGoUp();
         }
@@ -93,8 +93,8 @@ class Bender {
 
     //Assegurem que no hi hagi una paret a la casella de la dreta
     private boolean canGoRight() {
-        int nextx = this.myLocation[1] + 1;
-        return myMap[this.myLocation[0]][nextx] != '#';
+        int nextx = myLocation[1] + 1;
+        return myMap[myLocation[0]][nextx] != '#';
     }
 
     //Right = East
@@ -103,9 +103,9 @@ class Bender {
         while (stillRight) {
             route += "E";
             //my col goes right
-            this.myLocation[1]++;
+            myLocation[1]++;
             checkMyLocation();
-            if (Arrays.equals(this.myLocation, this.goalLocation))
+            if (Arrays.equals(myLocation, this.goalLocation))
                 break;
             stillRight = canGoRight();
         }
@@ -113,8 +113,8 @@ class Bender {
 
     //Assegurar que no hi hagi una paret a la casella de la d'avall
     private boolean canGoDown() {
-        int nexty = this.myLocation[0] + 1;
-        return myMap[nexty][this.myLocation[1]] != '#';
+        int nexty = myLocation[0] + 1;
+        return myMap[nexty][myLocation[1]] != '#';
     }
 
     //Down = South
@@ -123,9 +123,9 @@ class Bender {
         while (stillDown) {
             route += "S";
             //my row goes down
-            this.myLocation[0]++;
+            myLocation[0]++;
             checkMyLocation();
-            if (Arrays.equals(this.myLocation, this.goalLocation))
+            if (Arrays.equals(myLocation, this.goalLocation))
                 break;
             stillDown = canGoDown();
         }
@@ -133,8 +133,8 @@ class Bender {
 
     //Assegurem que no hi hagi una paret a la casella de la de l'esquerra
     private boolean canGoLeft() {
-        int nextx = this.myLocation[1] - 1;
-        return myMap[this.myLocation[0]][nextx] != '#';
+        int nextx = myLocation[1] - 1;
+        return myMap[myLocation[0]][nextx] != '#';
     }
 
     //Left = West
@@ -143,19 +143,19 @@ class Bender {
         while (stillLeft) {
             route += "W";
             //my col goes left
-            this.myLocation[1]--;
+            myLocation[1]--;
             checkMyLocation();
-            if (Arrays.equals(this.myLocation, this.goalLocation))
+            if (Arrays.equals(myLocation, this.goalLocation))
                 break;
             stillLeft = canGoLeft();
         }
     }
 
     private void checkMyLocation() {
-        if (this.myMap[myLocation[0]][myLocation[1]] == 'I') {
+        if (myMap[myLocation[0]][myLocation[1]] == 'I') {
             this.reverse = !this.reverse;
         }
-        if (this.myMap[myLocation[0]][myLocation[1]] == 'T') {
+        if (myMap[myLocation[0]][myLocation[1]] == 'T') {
             teleport();
         }
     }
@@ -166,9 +166,9 @@ class Bender {
     }
 
     private int[] find(char objective) {
-        for (int i = 0; i < this.mapRows; i++) {
-            for (int j = 0; j < this.mapCols; j++) {
-                if (this.myMap[i][j] == objective) {
+        for (int i = 0; i < mapRows; i++) {
+            for (int j = 0; j < mapCols; j++) {
+                if (myMap[i][j] == objective) {
                     return new int[]{i, j};
                 }
             }

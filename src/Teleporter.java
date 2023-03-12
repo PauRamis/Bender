@@ -11,7 +11,7 @@ public class Teleporter {
             for (int j = 0; j < Bender.mapCols; j++) {
                 if (Bender.myMap[i][j] == 'T') {
                     int[] newTeleporter = new int[]{i, j};
-                    if (isShorter(newTeleporter, nearestTeleporter)){
+                    if (isShorter(newTeleporter, nearestTeleporter) && newTeleporter != teleporterLocation){
                         nearestTeleporter = newTeleporter;
                     }
                 }
